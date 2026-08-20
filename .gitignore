@@ -20,10 +20,12 @@ node_modules/
 dist/
 build/
 .next/
+.vercel/
 .nuxt/
 .svelte-kit/
 .vite/
 coverage/
+out/
 
 # Environment files
 .env
