@@ -1,13 +1,13 @@
 "use client";
 
 import { gsap } from "gsap";
-import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { EarthScene } from "./EarthScene";
 import styles from "./HomeHero.module.css";
 
 export function HomeHero() {
   const heroRef = useRef<HTMLElement>(null);
+  const isExploringRef = useRef(false);
 
   useEffect(() => {
     const hero = heroRef.current;
@@ -107,6 +107,90 @@ export function HomeHero() {
     return () => context.revert();
   }, []);
 
+  const handleExplore = () => {
+    const hero = heroRef.current;
+    const target = document.querySelector<HTMLElement>("#timeline");
+
+    if (!hero || !target || isExploringRef.current) {
+      return;
+    }
+
+    isExploringRef.current = true;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (reduceMotion) {
+      target.scrollIntoView({ behavior: "auto", block: "start" });
+      isExploringRef.current = false;
+      return;
+    }
+
+    const selector = gsap.utils.selector(hero);
+    const startY = window.scrollY;
+    const targetY = target.getBoundingClientRect().top + window.scrollY;
+    const scrollState = { y: startY };
+
+    const timeline = gsap.timeline({
+      defaults: {
+        ease: "power2.inOut",
+      },
+      onComplete: () => {
+        isExploringRef.current = false;
+      },
+    });
+
+    timeline
+      .to(selector("[data-explore-button]"), {
+        autoAlpha: 0,
+        y: -10,
+        duration: 0.45,
+      })
+      .to(
+        selector("[data-hero-heading], [data-hero-subtitle]"),
+        {
+          y: -48,
+          filter: "blur(1px)",
+          duration: 1.25,
+        },
+        "<",
+      )
+      .to(
+        selector("[data-star-layer]"),
+        {
+          scale: 1.06,
+          y: -28,
+          opacity: 0.92,
+          duration: 1.45,
+          stagger: 0.04,
+        },
+        "<",
+      )
+      .to(
+        selector("[data-earth-stage]"),
+        {
+          scale: 1.08,
+          y: -42,
+          duration: 1.55,
+        },
+        "<0.1",
+      )
+      .to(
+        selector("[data-scroll-cue]"),
+        {
+          autoAlpha: 0,
+          y: 12,
+          duration: 0.55,
+        },
+        "<",
+      )
+      .to(scrollState, {
+        y: targetY,
+        duration: 1.35,
+        ease: "power2.inOut",
+        onUpdate: () => window.scrollTo(0, scrollState.y),
+      }, "-=0.45");
+  };
+
   return (
     <section ref={heroRef} className={styles.hero} data-animated="false" aria-label="问天首页首屏">
       <div className={styles.spacefield} data-star-layer="main" />
@@ -119,7 +203,7 @@ export function HomeHero() {
 
       <div className={styles.content}>
         <div className={styles.copy}>
-          <h1>
+          <h1 data-hero-heading>
             <span className={styles.titleLead} data-hero-reveal>
               七秩问天路
             </span>
@@ -130,12 +214,18 @@ export function HomeHero() {
               WENTIAN
             </span>
           </h1>
-          <p className={styles.subtitle} data-hero-reveal>
+          <p className={styles.subtitle} data-hero-reveal data-hero-subtitle>
             从东方红一号，到星辰大海
           </p>
-          <Link className={styles.cta} href="/#timeline" data-hero-reveal>
+          <button
+            type="button"
+            className={styles.cta}
+            onClick={handleExplore}
+            data-hero-reveal
+            data-explore-button
+          >
             开始探索 <span aria-hidden="true">-&gt;</span>
-          </Link>
+          </button>
         </div>
       </div>
 

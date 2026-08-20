@@ -197,10 +197,14 @@
   margin-top: 2.7rem;
   align-items: center;
   gap: 0.7rem;
+  border: 0;
   border-bottom: 1px solid rgba(217, 31, 47, 0.7);
+  background: transparent;
   color: var(--star-white);
+  cursor: pointer;
   font-size: 0.98rem;
   font-weight: 600;
+  padding: 0;
   text-decoration: none;
   transition:
     gap 300ms ease,
