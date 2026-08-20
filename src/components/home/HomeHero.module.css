@@ -10,12 +10,27 @@
   color: var(--star-white);
 }
 
+.hero[data-animated="false"] [data-star-layer],
+.hero[data-animated="false"] [data-earth-stage],
+.hero[data-animated="false"] [data-hero-reveal],
+.hero[data-animated="false"] [data-scroll-cue] {
+  opacity: 0;
+}
+
 .spacefield,
 .nearStars,
 .farStars {
   position: absolute;
   inset: 0;
   pointer-events: none;
+}
+
+.earthStage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  will-change: transform, opacity, filter;
 }
 
 .spacefield {
@@ -82,6 +97,7 @@
   width: min(118vw, 92rem);
   height: min(68vh, 46rem);
   pointer-events: auto;
+  will-change: transform;
 }
 
 .earthCanvas canvas {
@@ -141,15 +157,6 @@
 
 .copy {
   width: min(100%, 45rem);
-}
-
-.kicker {
-  margin-bottom: 1.65rem;
-  color: rgba(167, 173, 186, 0.9);
-  font-size: clamp(0.78rem, 0.72rem + 0.22vw, 0.94rem);
-  font-weight: 600;
-  letter-spacing: 0.36em;
-  text-transform: uppercase;
 }
 
 .titleLead {
@@ -250,6 +257,22 @@
 
   50% {
     transform: translateY(0.35rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spacefield,
+  .farStars,
+  .nearStars,
+  .scrollArrow {
+    animation: none;
+  }
+
+  .hero[data-animated="false"] [data-star-layer],
+  .hero[data-animated="false"] [data-earth-stage],
+  .hero[data-animated="false"] [data-hero-reveal],
+  .hero[data-animated="false"] [data-scroll-cue] {
+    opacity: 1;
   }
 }
 
