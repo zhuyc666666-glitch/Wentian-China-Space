@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { EarthScene } from "./EarthScene";
 import styles from "./HomeHero.module.css";
 
 export function HomeHero() {
@@ -8,8 +9,7 @@ export function HomeHero() {
       <div className={styles.farStars} />
       <div className={styles.nearStars} />
       <div className={styles.orbitalLine} />
-      <div className={styles.earthGlow} />
-      <div className={styles.earth} />
+      <EarthScene />
 
       <div className={styles.content}>
         <div className={styles.copy}>
