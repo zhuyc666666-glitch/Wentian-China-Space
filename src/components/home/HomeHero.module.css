@@ -1,0 +1,267 @@
+.hero {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 15%, rgba(30, 64, 175, 0.2), transparent 32rem),
+    radial-gradient(circle at 18% 28%, rgba(217, 31, 47, 0.08), transparent 28rem),
+    linear-gradient(180deg, #06101f 0%, var(--space-black) 54%, #01030a 100%);
+  color: var(--star-white);
+}
+
+.spacefield,
+.nearStars,
+.farStars,
+.earth,
+.earthGlow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.spacefield {
+  z-index: -4;
+  background:
+    radial-gradient(circle at 12% 24%, rgba(248, 250, 252, 0.75) 0 1px, transparent 1.4px),
+    radial-gradient(circle at 24% 18%, rgba(167, 173, 186, 0.5) 0 1px, transparent 1.4px),
+    radial-gradient(circle at 38% 31%, rgba(248, 250, 252, 0.42) 0 1px, transparent 1.4px),
+    radial-gradient(circle at 57% 16%, rgba(248, 250, 252, 0.62) 0 1.2px, transparent 1.8px),
+    radial-gradient(circle at 72% 27%, rgba(167, 173, 186, 0.54) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 85% 18%, rgba(248, 250, 252, 0.5) 0 1px, transparent 1.4px),
+    radial-gradient(circle at 91% 45%, rgba(248, 250, 252, 0.58) 0 1.2px, transparent 1.8px),
+    radial-gradient(circle at 7% 58%, rgba(167, 173, 186, 0.44) 0 1px, transparent 1.4px),
+    radial-gradient(circle at 31% 64%, rgba(248, 250, 252, 0.5) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 68% 61%, rgba(248, 250, 252, 0.44) 0 1px, transparent 1.4px),
+    radial-gradient(circle at 78% 78%, rgba(167, 173, 186, 0.5) 0 1px, transparent 1.5px);
+  opacity: 0.74;
+  animation: starPulse 12s ease-in-out infinite;
+}
+
+.farStars {
+  z-index: -3;
+  background:
+    radial-gradient(circle at 15% 42%, rgba(248, 250, 252, 0.32) 0 0.7px, transparent 1.1px),
+    radial-gradient(circle at 47% 47%, rgba(248, 250, 252, 0.28) 0 0.8px, transparent 1.2px),
+    radial-gradient(circle at 61% 37%, rgba(167, 173, 186, 0.34) 0 0.8px, transparent 1.2px),
+    radial-gradient(circle at 83% 55%, rgba(248, 250, 252, 0.3) 0 0.8px, transparent 1.2px),
+    radial-gradient(circle at 27% 82%, rgba(167, 173, 186, 0.3) 0 0.8px, transparent 1.2px);
+  opacity: 0.58;
+  animation: starPulse 18s ease-in-out 1.5s infinite;
+}
+
+.nearStars {
+  z-index: -2;
+  background:
+    radial-gradient(circle at 20% 36%, rgba(255, 255, 255, 0.82) 0 1.6px, transparent 2.5px),
+    radial-gradient(circle at 53% 25%, rgba(255, 255, 255, 0.78) 0 1.8px, transparent 2.7px),
+    radial-gradient(circle at 80% 35%, rgba(200, 164, 93, 0.7) 0 1.4px, transparent 2.4px),
+    radial-gradient(circle at 73% 68%, rgba(255, 255, 255, 0.68) 0 1.5px, transparent 2.5px);
+  filter: drop-shadow(0 0 8px rgba(248, 250, 252, 0.16));
+  opacity: 0.7;
+  animation: starPulse 15s ease-in-out 3s infinite;
+}
+
+.orbitalLine {
+  position: absolute;
+  right: -16rem;
+  bottom: 1rem;
+  z-index: -1;
+  width: min(72vw, 56rem);
+  aspect-ratio: 1;
+  border: 1px solid rgba(167, 173, 186, 0.12);
+  border-radius: 999px;
+  transform: rotate(-18deg);
+  mask-image: linear-gradient(90deg, transparent 8%, black 46%, transparent 82%);
+  pointer-events: none;
+}
+
+.earthGlow {
+  z-index: -2;
+  top: auto;
+  bottom: -28rem;
+  left: 50%;
+  width: min(118vw, 86rem);
+  height: min(48vw, 34rem);
+  border-radius: 50% 50% 0 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(56, 189, 248, 0.26), transparent 62%);
+  filter: blur(22px);
+  transform: translateX(-50%);
+}
+
+.earth {
+  z-index: -1;
+  top: auto;
+  right: auto;
+  bottom: -31rem;
+  left: 50%;
+  width: min(125vw, 92rem);
+  height: min(62vw, 42rem);
+  border-radius: 50% 50% 0 0;
+  background:
+    radial-gradient(ellipse at 48% 0%, rgba(248, 250, 252, 0.34), transparent 8%),
+    radial-gradient(ellipse at 42% 14%, rgba(56, 189, 248, 0.34), transparent 25%),
+    radial-gradient(ellipse at 58% 8%, rgba(14, 165, 233, 0.22), transparent 28%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.1), rgba(3, 7, 18, 0.9) 44%, #01030a 100%);
+  border-top: 1px solid rgba(248, 250, 252, 0.32);
+  box-shadow:
+    inset 0 2rem 6rem rgba(56, 189, 248, 0.12),
+    0 -1rem 6rem rgba(14, 165, 233, 0.18);
+  transform: translateX(-50%);
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 100vh;
+  width: min(100%, 82rem);
+  margin: 0 auto;
+  padding: 9rem clamp(1.5rem, 4vw, 4rem) 8rem;
+  align-items: center;
+}
+
+.copy {
+  width: min(100%, 45rem);
+}
+
+.kicker {
+  margin-bottom: 1.65rem;
+  color: rgba(167, 173, 186, 0.9);
+  font-size: clamp(0.78rem, 0.72rem + 0.22vw, 0.94rem);
+  font-weight: 600;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+}
+
+.titleLead {
+  display: block;
+  margin-bottom: 0.95rem;
+  color: rgba(248, 250, 252, 0.72);
+  font-size: clamp(1.25rem, 0.9rem + 1.5vw, 2.5rem);
+  font-weight: 500;
+}
+
+.titleMain {
+  display: block;
+  color: var(--star-white);
+  font-size: clamp(4.2rem, 2.8rem + 7vw, 10rem);
+  font-weight: 680;
+  line-height: 0.92;
+}
+
+.titleEnglish {
+  display: block;
+  margin-top: 1rem;
+  color: rgba(248, 250, 252, 0.78);
+  font-size: clamp(0.88rem, 0.78rem + 0.42vw, 1.22rem);
+  font-weight: 600;
+  letter-spacing: 0.42em;
+}
+
+.subtitle {
+  margin-top: 2rem;
+  max-width: 34rem;
+  color: rgba(226, 232, 240, 0.82);
+  font-size: clamp(1.05rem, 0.96rem + 0.4vw, 1.34rem);
+  line-height: 1.9;
+}
+
+.cta {
+  display: inline-flex;
+  margin-top: 2.7rem;
+  align-items: center;
+  gap: 0.7rem;
+  border-bottom: 1px solid rgba(217, 31, 47, 0.7);
+  color: var(--star-white);
+  font-size: 0.98rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    gap 300ms ease,
+    color 300ms ease,
+    border-color 300ms ease;
+}
+
+.cta:hover {
+  gap: 1rem;
+  border-color: var(--warm-gold);
+  color: #ffffff;
+}
+
+.scrollCue {
+  position: absolute;
+  bottom: 2.1rem;
+  left: 50%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  color: rgba(167, 173, 186, 0.72);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  transform: translateX(-50%);
+}
+
+.scrollArrow {
+  color: var(--china-red);
+  font-size: 1.1rem;
+  line-height: 1;
+  animation: scrollDrift 2.8s ease-in-out infinite;
+}
+
+@keyframes starPulse {
+  0%,
+  100% {
+    opacity: 0.48;
+  }
+
+  48% {
+    opacity: 0.82;
+  }
+}
+
+@keyframes scrollDrift {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(0.35rem);
+  }
+}
+
+@media (max-width: 760px) {
+  .content {
+    padding-top: 8.5rem;
+    text-align: left;
+  }
+
+  .titleMain {
+    font-size: clamp(4rem, 22vw, 6.6rem);
+  }
+
+  .titleEnglish {
+    letter-spacing: 0.3em;
+  }
+
+  .earth {
+    bottom: -17rem;
+    width: 132vw;
+    height: 23rem;
+  }
+
+  .earthGlow {
+    bottom: -14rem;
+    width: 126vw;
+    height: 18rem;
+  }
+
+  .scrollCue {
+    bottom: 1.4rem;
+  }
+}
