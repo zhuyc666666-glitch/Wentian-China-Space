@@ -1,0 +1,546 @@
+.section {
+  --trail-progress: 0;
+  position: relative;
+  min-height: 980vh;
+  overflow: clip;
+  background:
+    radial-gradient(circle at 14% 10%, rgba(217, 31, 47, 0.07), transparent 28rem),
+    linear-gradient(180deg, #01030a 0%, var(--space-black) 16%, #02050d 100%);
+  color: var(--star-white);
+  isolation: isolate;
+}
+
+.background {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+  height: 100vh;
+  margin-bottom: -100vh;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    opacity 0.7s ease,
+    background 1s ease;
+}
+
+.section:where(:hover, :focus-within) .background,
+.section[data-phase] .background {
+  opacity: 1;
+}
+
+.starVeil,
+.earthAura,
+.moonDisc,
+.marsHaze,
+.deepSpace {
+  position: absolute;
+  inset: 0;
+  transition:
+    opacity 1.1s ease,
+    transform 1.1s ease;
+}
+
+.starVeil {
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(248, 250, 252, 0.38) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 28% 68%, rgba(248, 250, 252, 0.2) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 64% 30%, rgba(248, 250, 252, 0.28) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 88% 58%, rgba(248, 250, 252, 0.18) 0 1px, transparent 1.5px);
+  background-size: 28rem 32rem, 34rem 30rem, 42rem 36rem, 30rem 38rem;
+  opacity: 0.7;
+}
+
+.earthAura {
+  background:
+    radial-gradient(circle at 22% 82%, rgba(42, 76, 142, 0.3), transparent 18rem),
+    radial-gradient(circle at 18% 92%, rgba(248, 250, 252, 0.1), transparent 12rem);
+  opacity: 0.72;
+}
+
+.moonDisc {
+  inset: auto 8% 13% auto;
+  width: 21rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 28%, rgba(248, 250, 252, 0.26) 0 0.16rem, transparent 0.2rem),
+    radial-gradient(circle at 64% 58%, rgba(248, 250, 252, 0.16) 0 0.28rem, transparent 0.34rem),
+    radial-gradient(circle at 48% 44%, rgba(248, 250, 252, 0.08), transparent 54%),
+    linear-gradient(135deg, rgba(210, 216, 226, 0.2), rgba(96, 108, 128, 0.05));
+  box-shadow: inset -2.6rem -2.4rem 5rem rgba(0, 0, 0, 0.64);
+  opacity: 0;
+  transform: translate3d(2rem, 1rem, 0) scale(0.92);
+}
+
+.marsHaze {
+  background:
+    radial-gradient(circle at 76% 48%, rgba(181, 89, 52, 0.16), transparent 22rem),
+    radial-gradient(circle at 58% 16%, rgba(200, 164, 93, 0.08), transparent 18rem);
+  opacity: 0;
+}
+
+.deepSpace {
+  background:
+    radial-gradient(circle at 52% 45%, rgba(248, 250, 252, 0.05), transparent 24rem),
+    radial-gradient(circle at 88% 22%, rgba(30, 64, 175, 0.1), transparent 18rem);
+  opacity: 0;
+}
+
+.orbitalSketch,
+.capsuleSketch,
+.stationSketch {
+  position: absolute;
+  fill: none;
+  stroke: rgba(248, 250, 252, 0.16);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.3;
+  opacity: 0;
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s ease;
+}
+
+.orbitalSketch {
+  right: 5%;
+  bottom: 5%;
+  width: min(56rem, 76vw);
+  transform: translate3d(1.2rem, 1rem, 0);
+}
+
+.capsuleSketch {
+  right: 16%;
+  top: 25%;
+  width: 13rem;
+  stroke: rgba(248, 250, 252, 0.2);
+  transform: translate3d(0.8rem, 0.6rem, 0) rotate(-8deg);
+}
+
+.stationSketch {
+  right: 10%;
+  top: 18%;
+  width: 22rem;
+  stroke: rgba(248, 250, 252, 0.22);
+  transform: translate3d(1.2rem, -0.4rem, 0);
+}
+
+.phaseLabel {
+  position: absolute;
+  right: max(1.5rem, 5vw);
+  bottom: 4rem;
+  max-width: 18rem;
+  color: rgba(248, 250, 252, 0.14);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  line-height: 1.8;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.background[data-phase="earth"] .earthAura,
+.background[data-phase="earth"] .orbitalSketch {
+  opacity: 0.78;
+  transform: translate3d(0, 0, 0);
+}
+
+.background[data-phase="crewed"] .earthAura,
+.background[data-phase="crewed"] .orbitalSketch,
+.background[data-phase="crewed"] .capsuleSketch {
+  opacity: 0.78;
+  transform: translate3d(0, 0, 0) rotate(-8deg);
+}
+
+.background[data-phase="lunar"] .moonDisc,
+.background[data-phase="lunar"] .orbitalSketch {
+  opacity: 0.68;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.background[data-phase="mars"] .moonDisc {
+  opacity: 0.36;
+  transform: translate3d(0, 0, 0) scale(0.96);
+}
+
+.background[data-phase="mars"] .marsHaze {
+  opacity: 1;
+}
+
+.background[data-phase="station"] .moonDisc {
+  opacity: 0.32;
+}
+
+.background[data-phase="station"] .stationSketch,
+.background[data-phase="station"] .orbitalSketch {
+  opacity: 0.74;
+  transform: translate3d(0, 0, 0);
+}
+
+.background[data-phase="anniversary"] .earthAura,
+.background[data-phase="anniversary"] .moonDisc {
+  opacity: 0.46;
+}
+
+.background[data-phase="anniversary"] {
+  background: radial-gradient(circle at 44% 50%, rgba(217, 31, 47, 0.1), transparent 24rem);
+}
+
+.background[data-phase="future"] .deepSpace {
+  opacity: 1;
+}
+
+.intro {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  min-height: 100vh;
+  padding: 8rem max(1.5rem, 6vw);
+  place-items: center start;
+}
+
+.introCopy {
+  width: min(100%, 44rem);
+}
+
+.introYear {
+  display: block;
+  color: rgba(248, 250, 252, 0.16);
+  font-size: 8rem;
+  font-weight: 680;
+  line-height: 0.82;
+}
+
+.introTitle {
+  margin-top: 2rem;
+  font-size: 4.75rem;
+  font-weight: 640;
+  line-height: 1;
+}
+
+.introTitle span {
+  display: block;
+  margin-top: 1rem;
+  color: var(--china-red);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+}
+
+.introCopy p {
+  margin-top: 1.1rem;
+  max-width: 32rem;
+  color: rgba(226, 232, 240, 0.82);
+  font-size: 1.22rem;
+  line-height: 1.85;
+}
+
+.introMeta {
+  display: block;
+  margin-top: 2.3rem;
+  color: rgba(200, 164, 93, 0.84);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+}
+
+.journey {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 88rem);
+  margin: 0 auto;
+  padding: 10vh max(1.5rem, 6vw) 18vh;
+}
+
+.trajectory {
+  position: sticky;
+  top: 10vh;
+  z-index: 0;
+  height: 80vh;
+  opacity: 0.82;
+}
+
+.trajectory svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.trajectoryBase,
+.trajectoryActive {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.trajectoryBase {
+  stroke: rgba(248, 250, 252, 0.09);
+  stroke-width: 1.2;
+  stroke-dasharray: 0.08 0.035;
+}
+
+.trajectoryActive {
+  stroke: rgba(248, 250, 252, 0.72);
+  stroke-width: 1.55;
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--trail-progress));
+  filter: drop-shadow(0 0 0.7rem rgba(217, 31, 47, 0.14));
+}
+
+.events {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: 10vh;
+  margin-top: -78vh;
+}
+
+.event {
+  position: relative;
+  display: grid;
+  min-height: 64vh;
+  align-items: center;
+  width: min(100%, 42rem);
+}
+
+.event:nth-child(even) {
+  justify-self: end;
+}
+
+.event[data-emphasis="true"] {
+  min-height: 82vh;
+}
+
+.eventCopy {
+  position: relative;
+  padding: 0 0 0 1.35rem;
+  border-left: 1px solid rgba(248, 250, 252, 0.12);
+}
+
+.event[data-active="true"] .eventCopy {
+  border-left-color: rgba(217, 31, 47, 0.72);
+}
+
+.eventMarker {
+  position: absolute;
+  top: 50%;
+  left: -0.15rem;
+  width: 0.45rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(248, 250, 252, 0.72);
+  box-shadow: 0 0 1.4rem rgba(248, 250, 252, 0.14);
+  transform: translateY(-50%);
+}
+
+.event[data-active="true"] .eventMarker {
+  background: var(--china-red);
+  box-shadow: 0 0 1.6rem rgba(217, 31, 47, 0.36);
+}
+
+.eventYear {
+  display: block;
+  color: rgba(248, 250, 252, 0.92);
+  font-size: 5.4rem;
+  font-weight: 680;
+  line-height: 0.86;
+}
+
+.event[data-emphasis="true"] .eventYear {
+  color: var(--star-white);
+  font-size: 7rem;
+}
+
+.eventTitle {
+  margin-top: 1.2rem;
+  font-size: 2.4rem;
+  font-weight: 620;
+  line-height: 1.12;
+}
+
+.eventDescription {
+  margin-top: 1.1rem;
+  max-width: 34rem;
+  color: rgba(226, 232, 240, 0.78);
+  font-size: 1.05rem;
+  line-height: 1.9;
+}
+
+.eventEnglish {
+  margin-top: 1.05rem;
+  color: rgba(248, 250, 252, 0.42);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  line-height: 1.7;
+  text-transform: uppercase;
+}
+
+.progress {
+  position: fixed;
+  right: 2rem;
+  top: 50%;
+  z-index: 4;
+  display: grid;
+  gap: 0.9rem;
+  width: 4.8rem;
+  color: rgba(248, 250, 252, 0.48);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-align: center;
+  transform: translateY(-50%);
+}
+
+.progress span {
+  white-space: nowrap;
+}
+
+.progressLine {
+  position: relative;
+  display: block;
+  width: 1px;
+  height: 12rem;
+  margin: 0 auto;
+  overflow: hidden;
+  background: rgba(248, 250, 252, 0.14);
+}
+
+.progressLine span {
+  position: absolute;
+  inset: 0 0 auto;
+  height: calc(var(--timeline-active-progress) * 100%);
+  background: linear-gradient(180deg, var(--china-red), rgba(248, 250, 252, 0.62));
+  transition: height 0.45s ease;
+}
+
+@media (max-width: 900px) {
+  .section {
+    min-height: auto;
+  }
+
+  .intro {
+    min-height: 92vh;
+    padding-top: 7rem;
+  }
+
+  .introYear {
+    font-size: 5.8rem;
+  }
+
+  .introTitle {
+    font-size: 3.3rem;
+  }
+
+  .introCopy p {
+    font-size: 1.05rem;
+  }
+
+  .journey {
+    padding: 6vh 1.25rem 10vh;
+  }
+
+  .trajectory {
+    position: absolute;
+    top: 4rem;
+    bottom: 0;
+    left: 1.5rem;
+    width: 1px;
+    height: auto;
+  }
+
+  .trajectory svg {
+    display: none;
+  }
+
+  .trajectory::before,
+  .trajectory::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+  }
+
+  .trajectory::before {
+    background: rgba(248, 250, 252, 0.1);
+  }
+
+  .trajectory::after {
+    height: calc(var(--trail-progress) * 100%);
+    background: linear-gradient(180deg, var(--china-red), rgba(248, 250, 252, 0.58));
+  }
+
+  .events {
+    gap: 3.5rem;
+    margin-top: 0;
+    padding-left: 1.6rem;
+  }
+
+  .event,
+  .event[data-emphasis="true"] {
+    min-height: auto;
+    width: 100%;
+    padding: 2.4rem 0;
+  }
+
+  .event:nth-child(even) {
+    justify-self: auto;
+  }
+
+  .eventYear,
+  .event[data-emphasis="true"] .eventYear {
+    font-size: 3.8rem;
+  }
+
+  .eventTitle {
+    font-size: 1.72rem;
+  }
+
+  .eventDescription {
+    font-size: 0.98rem;
+  }
+
+  .progress {
+    display: none;
+  }
+
+  .moonDisc,
+  .capsuleSketch,
+  .stationSketch,
+  .phaseLabel {
+    display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .introYear {
+    font-size: 4.8rem;
+  }
+
+  .introTitle {
+    font-size: 2.65rem;
+  }
+
+  .eventYear,
+  .event[data-emphasis="true"] .eventYear {
+    font-size: 3.05rem;
+  }
+
+  .eventTitle {
+    font-size: 1.44rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .background,
+  .starVeil,
+  .earthAura,
+  .moonDisc,
+  .marsHaze,
+  .deepSpace,
+  .orbitalSketch,
+  .capsuleSketch,
+  .stationSketch,
+  .progressLine span {
+    transition: none;
+  }
+}

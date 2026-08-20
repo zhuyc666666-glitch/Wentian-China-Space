@@ -1,11 +1,11 @@
 import { HomeHero } from "@/components/home/HomeHero";
-import { TimelineIntro } from "@/components/timeline/TimelineIntro";
+import { SpaceTimeline } from "@/components/timeline/SpaceTimeline";
 
 export default function Home() {
   return (
     <main>
       <HomeHero />
-      <TimelineIntro />
+      <SpaceTimeline />
     </main>
   );
 }

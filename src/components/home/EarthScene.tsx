@@ -17,6 +17,31 @@ import {
 } from "three";
 import styles from "./HomeHero.module.css";
 
+function muteThreeClockDeprecationWarning() {
+  if (process.env.NODE_ENV !== "development") {
+    return undefined;
+  }
+
+  const originalWarn = console.warn;
+
+  console.warn = (...args) => {
+    const [message] = args;
+
+    if (
+      typeof message === "string" &&
+      message.includes("THREE.Clock: This module has been deprecated")
+    ) {
+      return;
+    }
+
+    originalWarn(...args);
+  };
+
+  return () => {
+    console.warn = originalWarn;
+  };
+}
+
 function canUseWebGL() {
   if (typeof window === "undefined") {
     return false;
@@ -187,6 +212,7 @@ export function EarthScene() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const restoreWarn = muteThreeClockDeprecationWarning();
     const mobileQuery = window.matchMedia("(max-width: 760px), (pointer: coarse)");
     let frame = 0;
 
@@ -203,6 +229,7 @@ export function EarthScene() {
     mobileQuery.addEventListener("change", updateDeviceProfile);
 
     return () => {
+      restoreWarn?.();
       window.cancelAnimationFrame(frame);
       mobileQuery.removeEventListener("change", updateDeviceProfile);
     };
