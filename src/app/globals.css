@@ -1,19 +1,162 @@
 @import "tailwindcss";
 
 :root {
+  --space-black: #030712;
+  --space-blue: #07111f;
+  --china-red: #d91f2f;
+  --moon-gray: #a7adba;
+  --star-white: #f8fafc;
+  --muted-text: #94a3b8;
+  --warm-gold: #c8a45d;
+  --surface-quiet: rgba(15, 23, 42, 0.58);
+  --hairline: rgba(248, 250, 252, 0.12);
+  --selection-bg: rgba(217, 31, 47, 0.84);
+  --selection-text: #ffffff;
   color-scheme: dark;
+  background: var(--space-black);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
 }
 
 * {
   box-sizing: border-box;
 }
 
+*::selection {
+  background: var(--selection-bg);
+  color: var(--selection-text);
+}
+
 html,
 body {
   margin: 0;
   min-height: 100%;
+  background:
+    radial-gradient(circle at 50% -20%, rgba(30, 64, 175, 0.18), transparent 36rem),
+    linear-gradient(180deg, var(--space-blue) 0%, var(--space-black) 34rem);
+  color: var(--star-white);
+  scroll-behavior: smooth;
+  scrollbar-color: rgba(167, 173, 186, 0.46) var(--space-black);
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  min-width: 320px;
+  overflow-x: hidden;
+  font-family:
+    "Inter",
+    "SF Pro Display",
+    "SF Pro Text",
+    "Segoe UI",
+    "PingFang SC",
+    "Hiragino Sans GB",
+    "Microsoft YaHei",
+    Arial,
+    sans-serif;
+  line-height: 1.6;
+  letter-spacing: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  background-image:
+    linear-gradient(rgba(248, 250, 252, 0.026) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(248, 250, 252, 0.018) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent 64%);
+}
+
+a {
+  color: inherit;
+  text-decoration-color: rgba(217, 31, 47, 0.55);
+  text-underline-offset: 0.2em;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  color: var(--star-white);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+p {
+  margin: 0;
+  color: var(--muted-text);
+}
+
+.eyebrow {
+  color: var(--moon-gray);
+  font-size: clamp(0.72rem, 0.68rem + 0.14vw, 0.84rem);
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.display-title {
+  font-size: clamp(3rem, 1.85rem + 5vw, 7.5rem);
+  font-weight: 650;
+  line-height: 0.98;
+}
+
+.section-title {
+  font-size: clamp(2rem, 1.45rem + 2.2vw, 4.75rem);
+  font-weight: 620;
+}
+
+.lead-text {
+  color: var(--muted-text);
+  font-size: clamp(1rem, 0.9rem + 0.42vw, 1.35rem);
+  line-height: 1.8;
+}
+
+.text-china-red {
+  color: var(--china-red);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--space-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(167, 173, 186, 0.56), rgba(71, 85, 105, 0.38));
+  border: 2px solid var(--space-black);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(200, 164, 93, 0.66), rgba(167, 173, 186, 0.48));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
